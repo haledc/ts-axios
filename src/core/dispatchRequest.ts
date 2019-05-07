@@ -30,6 +30,6 @@ function transformRequestData(config: AxiosRequestConfig) {
 }
 
 function transformUrl(config: AxiosRequestConfig): string {
-  const { url = '', params } = config
-  return buildURL(url, params)
+  const { url, params } = config
+  return buildURL(url!, params)
 }
