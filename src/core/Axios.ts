@@ -1,7 +1,7 @@
-import { AxiosRequestConfig, Method, AxiosPromise } from '../types'
+import { AxiosRequestConfig, Method, AxiosPromise, Axios as AxiosInterface } from '../types'
 import dispatchRequest from './dispatchRequest'
 
-export default class Axios {
+export default class Axios implements AxiosInterface {
   request(url: any, config?: any): AxiosPromise {
     if (typeof url === 'string') {
       if (!config) {
@@ -42,6 +42,7 @@ export default class Axios {
     return this._requestMethodWithData('patch', url, data, config)
   }
 
+  // 无数据的请求
   _requestMethodWithoutData(method: Method, url: string, config?: AxiosRequestConfig) {
     return this.request(
       Object.assign(config || {}, {
@@ -51,6 +52,7 @@ export default class Axios {
     )
   }
 
+  // 有数据的请求
   _requestMethodWithData(method: Method, url: string, data?: any, config?: AxiosRequestConfig) {
     return this.request(
       Object.assign(config || {}, {

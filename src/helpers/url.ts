@@ -1,5 +1,9 @@
 import { isDate, isPlainObject } from './util'
 
+/**
+ * 转义特殊符号
+ * @param val
+ */
 function encode(val: string): string {
   return encodeURIComponent(val)
     .replace(/%40/g, '@')
@@ -11,6 +15,11 @@ function encode(val: string): string {
     .replace(/%5D/gi, ']')
 }
 
+/**
+ * 拆分参数拼接成 URL
+ * @param url
+ * @param params
+ */
 export function buildURL(url: string, params?: any) {
   if (!params) {
     return url

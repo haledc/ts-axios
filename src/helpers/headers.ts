@@ -1,5 +1,11 @@
 import { isPlainObject } from './util'
 
+/**
+ * 处理请求头
+ * 当请求的数据是对象时，设置请求头文本类型
+ * @param headers
+ * @param data
+ */
 export function processHeaders(headers: any, data: any): any {
   normalizeHeaderName(headers, 'Content-Type')
 
@@ -23,7 +29,12 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
   })
 }
 
-export function parseHeaders(headers: string): any {
+/**
+ * 解析响应头
+ * string => object
+ * @param headers
+ */
+export function parseHeaders(headers: string): object {
   let parsed = Object.create(null)
 
   if (!headers) return parsed

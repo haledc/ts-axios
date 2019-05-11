@@ -1,3 +1,4 @@
+// 请求的方法
 export type Method =
   | 'get'
   | 'GET'
@@ -14,6 +15,7 @@ export type Method =
   | 'patch'
   | 'PATCH'
 
+// 请求配置选项
 export interface AxiosRequestConfig {
   url?: string
   method?: Method
@@ -24,6 +26,7 @@ export interface AxiosRequestConfig {
   timeout?: number
 }
 
+// 请求响应
 export interface AxiosResponse<T = any> {
   data: T
   status: number
@@ -33,8 +36,10 @@ export interface AxiosResponse<T = any> {
   request: any
 }
 
+// 请求响应的 Promise 类型
 export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {}
 
+// 错误类型
 export interface AxiosError extends Error {
   config: AxiosRequestConfig
   code?: string
@@ -43,6 +48,7 @@ export interface AxiosError extends Error {
   isAxiosError: boolean
 }
 
+// Axios 实例类的接口
 export interface Axios {
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
@@ -61,6 +67,7 @@ export interface Axios {
   patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
+// 实例对象
 export interface AxiosInstance extends Axios {
   <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 

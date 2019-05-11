@@ -43,6 +43,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       handleResponse(response)
     }
 
+    // 处理响应
     function handleResponse(response: AxiosResponse) {
       if (response.status >= 200 && response.status < 300) {
         resolve(response)
@@ -59,14 +60,17 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
     }
 
+    // 监听错误
     request.onerror = function handerError() {
       reject(createError('Network Error', config, null, request))
     }
 
+    // 监听过期时间
     request.ontimeout = function handleTimeout() {
       reject(createError(`Timeout of ${timeout} ms exceeded.`, config, 'ECONNABORTED', request))
     }
 
+    // 设置请求头
     Object.keys(headers).forEach(name => {
       if (data === null && name.toLowerCase() === 'content-type') {
         delete headers[name]
