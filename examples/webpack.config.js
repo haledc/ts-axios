@@ -1,9 +1,16 @@
+/*
+ * @Author: Hale
+ * @Description: 
+ * @Date: 2019-04-25
+ * @LastEditTime: 2019-05-16
+ */
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
+  devtool: 'source-map',
   entry: fs.readdirSync(__dirname).reduce((entries, dir) => {
     const fullDir = path.join(__dirname, dir)
     const entry = path.join(fullDir, 'app.ts')
