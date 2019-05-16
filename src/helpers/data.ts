@@ -20,7 +20,7 @@ export function transformResponse(data: any): any {
     try {
       data = JSON.parse(data)
     } catch (err) {
-      console.log(err)
+      // do nothing
     }
   }
   return data
