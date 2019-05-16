@@ -1,3 +1,9 @@
+/*
+ * @Author: Hale
+ * @Description: 类型和接口
+ * @Date: 2019-05-16
+ * @LastEditTime: 2019-05-17
+ */
 // 请求的方法
 export type Method =
   | 'get'
@@ -24,6 +30,10 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  transformResponse?: AxiosTransformer | AxiosTransformer[]
+
+  [propName: string]: any // 索引签名
 }
 
 // 请求响应
@@ -50,6 +60,7 @@ export interface AxiosError extends Error {
 
 // Axios 实例类的接口
 export interface Axios {
+  defaults: AxiosRequestConfig
   interceptors: {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
@@ -80,6 +91,11 @@ export interface AxiosInstance extends Axios {
   <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
+// 静态实例
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
+}
+
 // 拦截器接口
 export interface AxiosInterceptorManager<T> {
   use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
@@ -93,4 +109,9 @@ export interface ResolvedFn<T = any> {
 
 export interface RejectedFn {
   (error: any): any
+}
+
+// 转换器
+export interface AxiosTransformer {
+  (data: any, headers?: any): any
 }

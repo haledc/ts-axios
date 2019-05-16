@@ -1,3 +1,9 @@
+/*
+ * @Author: Hale
+ * @Description: server
+ * @Date: 2019-05-16
+ * @LastEditTime: 2019-05-16
+ */
 const express = require('express')
 const bodyParser = require('body-parser')
 const webpack = require('webpack')
@@ -31,6 +37,7 @@ registerBaseRouter()
 registerErrorRouter()
 registerExtendRouter()
 registerInterceptorRouter()
+registerConfigRouter()
 
 app.use(router)
 
@@ -144,5 +151,11 @@ function registerExtendRouter() {
 function registerInterceptorRouter() {
   router.get('/interceptor/get', (req, res) => {
     res.end('hello')
+  })
+}
+
+function registerConfigRouter() {
+  router.post('/config/post', (req, res) => {
+    res.json(req.body)
   })
 }
