@@ -39,4 +39,6 @@ axios({
   headers: {
     test: ''
   }
-}).then(res => console.log(res.data)) // hello13
+})
+  .then(res => console.log(res.data)) // hello13
+  .catch(err => console.log(err))
