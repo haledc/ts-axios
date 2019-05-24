@@ -1,8 +1,8 @@
 /*
  * @Author: Hale
- * @Description: 类型和接口
+ * @Description: 全局类型和接口
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-17
+ * @LastEditTime: 2019-05-24
  */
 // 请求的方法
 export type Method =
@@ -32,6 +32,7 @@ export interface AxiosRequestConfig {
   timeout?: number
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
+  cancelToken?: CancelToken
 
   [propName: string]: any // 索引签名
 }
@@ -94,6 +95,11 @@ export interface AxiosInstance extends Axios {
 // 静态实例
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
+
+  // 添加 cancel 属性
+  CancelToken: CancelTokenStatic
+  Cancel: CancelStatic
+  isCancel: (value: any) => boolean
 }
 
 // 拦截器接口
@@ -114,4 +120,42 @@ export interface RejectedFn {
 // 转换器
 export interface AxiosTransformer {
   (data: any, headers?: any): any
+}
+
+// 实例类型取消功能接口
+export interface CancelToken {
+  promise: Promise<Cancel>
+  reason?: Cancel
+
+  throwIfRequested(): void
+}
+
+// 取消功能方法的接口
+export interface Canceler {
+  (message?: string): void
+}
+
+// 类构造函数函数的接口
+export interface CancelExecutor {
+  (cancel: Canceler): void
+}
+
+export interface CancelTokenSource {
+  token: CancelToken
+  cancel: Canceler
+}
+
+// 取消功能静态类型接口
+export interface CancelTokenStatic {
+  new (executor: CancelExecutor): CancelToken
+
+  source(): CancelTokenSource
+}
+
+export interface Cancel {
+  message?: string
+}
+
+export interface CancelStatic {
+  new (message?: string): Cancel
 }
