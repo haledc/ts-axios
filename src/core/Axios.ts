@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: Axios 基类
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-17
+ * @LastEditTime: 2019-05-24
  */
 import {
   AxiosRequestConfig,
@@ -77,35 +77,35 @@ export default class Axios implements AxiosInterface {
   }
 
   get(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('get', url, config)
+    return this.requestMethodWithoutData('get', url, config)
   }
 
   delete(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('delete', url, config)
+    return this.requestMethodWithoutData('delete', url, config)
   }
 
   head(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('head', url, config)
+    return this.requestMethodWithoutData('head', url, config)
   }
 
   options(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithoutData('options', url, config)
+    return this.requestMethodWithoutData('options', url, config)
   }
 
   post(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithData('post', url, data, config)
+    return this.requestMethodWithData('post', url, data, config)
   }
 
   put(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithData('put', url, data, config)
+    return this.requestMethodWithData('put', url, data, config)
   }
 
   patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this._requestMethodWithData('patch', url, data, config)
+    return this.requestMethodWithData('patch', url, data, config)
   }
 
   // 无数据的请求
-  _requestMethodWithoutData(method: Method, url: string, config?: AxiosRequestConfig) {
+  private requestMethodWithoutData(method: Method, url: string, config?: AxiosRequestConfig) {
     return this.request(
       Object.assign(config || {}, {
         method,
@@ -115,7 +115,12 @@ export default class Axios implements AxiosInterface {
   }
 
   // 有数据的请求
-  _requestMethodWithData(method: Method, url: string, data?: any, config?: AxiosRequestConfig) {
+  private requestMethodWithData(
+    method: Method,
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ) {
     return this.request(
       Object.assign(config || {}, {
         method,
