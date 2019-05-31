@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: axios 默认配置
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-17
+ * @LastEditTime: 2019-05-31
  */
 import { AxiosRequestConfig } from './types'
 import { transformRequest, transformResponse } from './helpers/data'
@@ -12,6 +12,10 @@ const defaults: AxiosRequestConfig = {
   method: 'get',
 
   timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+
+  xsrfHeaderName: 'X-XSRF-TOKEN',
 
   headers: {
     common: {
@@ -30,7 +34,11 @@ const defaults: AxiosRequestConfig = {
     function(data: any): any {
       return transformResponse(data)
     }
-  ]
+  ],
+
+  validateStatus(status: number): boolean {
+    return status >= 200 && status < 300
+  }
 }
 
 const methodsNoData = ['delete', 'get', 'head', 'options']

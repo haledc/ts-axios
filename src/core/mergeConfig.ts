@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 合并请求配置
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-17
+ * @LastEditTime: 2019-05-31
  */
 import { AxiosRequestConfig } from '../types'
 import { isPlainObject, deepMerge } from '../helpers/util'
@@ -42,7 +42,7 @@ stratKeysFromVal2.forEach(key => {
 })
 
 // 使用深度合并策略的字段
-const stratKeysDeepMerge = ['headers']
+const stratKeysDeepMerge = ['headers', 'auth']
 
 stratKeysDeepMerge.forEach(key => {
   strats[key] = deepMergeStrat

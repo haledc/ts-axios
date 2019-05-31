@@ -2,8 +2,9 @@
  * @Author: Hale
  * @Description: 全局类型和接口
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-24
+ * @LastEditTime: 2019-05-31
  */
+
 // 请求的方法
 export type Method =
   | 'get'
@@ -33,6 +34,15 @@ export interface AxiosRequestConfig {
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
   cancelToken?: CancelToken
+  withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
+  onDownloadProgress?: (e: ProgressEvent) => void
+  onUploadProgress?: (e: ProgressEvent) => void
+  auth?: AxiosBasicCredentials
+  validateStatus?: (status: number) => boolean
+  paramsSerializer?: (params: any) => string
+  baseURL?: string
 
   [propName: string]: any // 索引签名
 }
@@ -62,10 +72,13 @@ export interface AxiosError extends Error {
 // Axios 实例类的接口
 export interface Axios {
   defaults: AxiosRequestConfig
+
   interceptors: {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
   }
+
+  getUri(config?: AxiosRequestConfig): string
 
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
@@ -95,6 +108,12 @@ export interface AxiosInstance extends Axios {
 // 静态实例
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
+
+  all<T>(promise: Array<T | Promise<T>>): Promise<T[]>
+
+  spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
+
+  Axios: AxiosClassStatic
 
   // 添加 cancel 属性
   CancelToken: CancelTokenStatic
@@ -158,4 +177,13 @@ export interface Cancel {
 
 export interface CancelStatic {
   new (message?: string): Cancel
+}
+
+export interface AxiosBasicCredentials {
+  username: string
+  password: string
+}
+
+export interface AxiosClassStatic {
+  new (config: AxiosRequestConfig): Axios
 }

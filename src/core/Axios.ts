@@ -1,8 +1,8 @@
 /*
  * @Author: Hale
- * @Description: Axios 基类
+ * @Description: Axios 类
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-24
+ * @LastEditTime: 2019-05-31
  */
 import {
   AxiosRequestConfig,
@@ -13,7 +13,7 @@ import {
   ResolvedFn,
   RejectedFn
 } from '../types'
-import dispatchRequest from './dispatchRequest'
+import dispatchRequest, { transformURL } from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
 import mergeConfig from './mergeConfig'
 
@@ -30,6 +30,11 @@ interface PromiseChain {
 export default class Axios implements AxiosInterface {
   defaults: AxiosRequestConfig
   interceptors: Interceptors
+
+  getUri(config: AxiosRequestConfig): string {
+    config = mergeConfig(this.defaults, config)
+    return transformURL(config)
+  }
 
   constructor(initConfig: AxiosRequestConfig) {
     this.defaults = initConfig

@@ -1,8 +1,8 @@
 /*
  * @Author: Hale
- * @Description: 
+ * @Description:
  * @Date: 2019-04-25
- * @LastEditTime: 2019-05-16
+ * @LastEditTime: 2019-05-31
  */
 const fs = require('fs')
 const path = require('path')
@@ -37,6 +37,10 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [{ loader: 'ts-loader', options: { transpileOnly: true } }]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },

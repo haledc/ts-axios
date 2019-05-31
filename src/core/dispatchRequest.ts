@@ -1,14 +1,13 @@
 /*
  * @Author: Hale
- * @Description: 发送请求
+ * @Description: 发送请求相关
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-23
+ * @LastEditTime: 2019-05-31
  */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import xhr from './xhr'
-import { buildURL } from '../helpers/url'
-import { transformRequest, transformResponse } from '../helpers/data'
-import { processHeaders, flattenHeaders } from '../helpers/headers'
+import { buildURL, isAbsoluteURL, combineURL } from '../helpers/url'
+import { flattenHeaders } from '../helpers/headers'
 import transform from './transform'
 
 // 处理请求配置后 发送 AJAX 请求
@@ -33,13 +32,16 @@ function transformResponseData(res: AxiosResponse): AxiosResponse {
 
 // 处理请求的所有配置选项
 function processConfig(config: AxiosRequestConfig): void {
-  config.url = transformUrl(config)
+  config.url = transformURL(config)
   config.data = transform(config.data, config.headers, config.transformRequest)
   config.headers = flattenHeaders(config.headers, config.method!)
 }
 
 // 处理 URL
-function transformUrl(config: AxiosRequestConfig): string {
-  const { url, params } = config
-  return buildURL(url!, params)
+export function transformURL(config: AxiosRequestConfig): string {
+  let { url, params, paramsSerializer, baseURL } = config
+  if (baseURL && !isAbsoluteURL(url!)) {
+    url = combineURL(baseURL, url)
+  }
+  return buildURL(url!, params, paramsSerializer)
 }

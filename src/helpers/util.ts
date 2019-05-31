@@ -1,8 +1,8 @@
 /*
  * @Author: Hale
- * @Description: 一般的工具函数
+ * @Description: 一般的辅助函数
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-17
+ * @LastEditTime: 2019-05-31
  */
 const toString = Object.prototype.toString
 
@@ -51,4 +51,14 @@ export function deepMerge(...objs: any[]): any {
   })
 
   return result
+}
+
+// 判断是否是 FormData
+export function isFormData(val: any): boolean {
+  return typeof val !== 'undefined' && val instanceof FormData
+}
+
+// 判断是否是 搜索参数
+export function isURLSearchParams(val: any): val is URLSearchParams {
+  return typeof val !== 'undefined' && val instanceof URLSearchParams
 }
