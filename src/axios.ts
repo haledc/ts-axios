@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: axios 入口
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
+ * @LastEditTime: 2019-06-03
  */
 
 import { AxiosStatic, AxiosRequestConfig } from './types'
@@ -39,5 +39,7 @@ axios.spread = function spread(callback) {
     return callback.apply(null, arr)
   }
 }
+
+axios.Axios = Axios
 
 export default axios
