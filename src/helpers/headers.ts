@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 处理请求头和响应头的辅助函数
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-17
+ * @LastEditTime: 2019-05-31
  */
 import { isPlainObject, deepMerge } from './util'
 import { Method } from '../types'
@@ -33,22 +33,20 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
 }
 
 // 解析响应头
-export function parseHeaders(headers: string): object {
+export function parseHeaders(headers: string): any {
   let parsed = Object.create(null)
 
   if (!headers) return parsed
 
   headers.split('\r\n').forEach(line => {
-    let [key, val] = line.split(':')
+    let [key, ...vals] = line.split(':') // 字段可能有多个 : 比如 date 字段
     key = key.trim().toLowerCase()
 
     if (!key) {
       return
     }
 
-    if (val) {
-      val = val.trim()
-    }
+    const val = vals.join(':').trim()
 
     parsed[key] = val
   })
