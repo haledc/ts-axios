@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: Axios 类
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
+ * @LastEditTime: 2019-06-03
  */
 import {
   AxiosRequestConfig,
@@ -22,19 +22,14 @@ interface Interceptors {
   response: InterceptorManager<AxiosResponse>
 }
 
-interface PromiseChain {
-  resolved: ResolvedFn | ((config: AxiosRequestConfig) => AxiosPromise)
+interface PromiseChain<T> {
+  resolved: ResolvedFn<T> | ((config: AxiosRequestConfig) => AxiosPromise)
   rejected?: RejectedFn
 }
 
 export default class Axios implements AxiosInterface {
   defaults: AxiosRequestConfig
   interceptors: Interceptors
-
-  getUri(config: AxiosRequestConfig): string {
-    config = mergeConfig(this.defaults, config)
-    return transformURL(config)
-  }
 
   constructor(initConfig: AxiosRequestConfig) {
     this.defaults = initConfig
@@ -56,8 +51,9 @@ export default class Axios implements AxiosInterface {
 
     // 合并配置
     config = mergeConfig(this.defaults, config)
+    config.method = config.method.toLowerCase()
 
-    const chain: PromiseChain[] = [
+    const chain: PromiseChain<any>[] = [
       {
         resolved: dispatchRequest,
         rejected: undefined
@@ -107,6 +103,11 @@ export default class Axios implements AxiosInterface {
 
   patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
     return this.requestMethodWithData('patch', url, data, config)
+  }
+
+  getUri(config: AxiosRequestConfig): string {
+    config = mergeConfig(this.defaults, config)
+    return transformURL(config)
   }
 
   // 无数据的请求
