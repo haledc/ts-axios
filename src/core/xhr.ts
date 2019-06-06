@@ -1,8 +1,8 @@
 /*
  * @Author: Hale
- * @Description: 封装原生 XMLHttpRequest
+ * @Description: 封装原生 XMLHttpRequest 为 Promise 对象
  * @Date: 2019-04-25
- * @LastEditTime: 2019-05-31
+ * @LastEditTime: 2019-06-06
  */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
@@ -16,8 +16,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     const {
       data = null,
       url,
-      method = 'get',
-      headers,
+      method,
+      headers = {},
       responseType,
       timeout,
       cancelToken,
@@ -32,7 +32,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     const request = new XMLHttpRequest()
 
-    request.open(method.toUpperCase(), url!, true)
+    request.open(method!.toUpperCase(), url!, true)
 
     configureRequest()
 
@@ -55,7 +55,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
 
       if (withCredentials) {
-        request.withCredentials = true
+        request.withCredentials = withCredentials
       }
     }
 
@@ -88,13 +88,13 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
 
       // 监听错误
-      request.onerror = function handerError() {
+      request.onerror = function handleError() {
         reject(createError('Network Error', config, null, request))
       }
 
       // 监听过期时间
       request.ontimeout = function handleTimeout() {
-        reject(createError(`Timeout of ${timeout} ms exceeded.`, config, 'ECONNABORTED', request))
+        reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', request))
       }
 
       if (onDownloadProgress) {
@@ -115,8 +115,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       if ((withCredentials || isURLSameOrigin(url!)) && xsrfCookieName) {
         const xsrfValue = cookie.read(xsrfCookieName)
 
-        if (xsrfValue) {
-          headers[xsrfHeaderName!] = xsrfValue
+        if (xsrfValue && xsrfHeaderName) {
+          headers[xsrfHeaderName] = xsrfValue
         }
       }
 
@@ -142,7 +142,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
             request.abort()
             reject(reason)
           })
-          .catch(err => console.log(err))
+          .catch(error => console.log(error))
       }
     }
 
