@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 发送请求相关
  * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
+ * @LastEditTime: 2019-06-02
  */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import xhr from './xhr'
@@ -14,7 +14,15 @@ import transform from './transform'
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
   throwIfCancellationRequested(config)
   processConfig(config)
-  return xhr(config).then(res => transformResponseData(res))
+  return xhr(config).then(
+    res => transformResponseData(res),
+    error => {
+      if (error && error.response) {
+        error.response = transformResponseData(error.response)
+      }
+      return Promise.reject(error)
+    }
+  )
 }
 
 // 检查 cancelToken 是否被使用
