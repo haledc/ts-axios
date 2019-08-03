@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test header config
- * @Date: 2019-06-02
- * @LastEditTime: 2019-06-02
- */
-
 import axios from '../src'
 import { getAjaxRequest } from './helper'
 

@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 处理请求头和响应头的辅助函数
- * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
- */
 import { isPlainObject, deepMerge } from './util'
 import { Method } from '../types'
 

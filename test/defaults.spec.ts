@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test default config
- * @Date: 2019-06-02
- * @LastEditTime: 2019-06-02
- */
-
 import axios, { AxiosTransformer } from '../src'
 import { getAjaxRequest } from './helper'
 import { deepMerge } from '../src/helpers/util'

@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 合并请求配置
- * @Date: 2019-05-16
- * @LastEditTime: 2019-06-03
- */
 import { AxiosRequestConfig } from '../types'
 import { isPlainObject, deepMerge } from '../helpers/util'
 

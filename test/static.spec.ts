@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test axios all and spread
- * @Date: 2019-06-03
- * @LastEditTime: 2019-06-03
- */
-
 import axios from '../src'
 
 describe('static', () => {

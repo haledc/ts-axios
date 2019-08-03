@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 全局类型和接口
- * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
- */
-
 // 请求的方法
 export type Method =
   | 'get'

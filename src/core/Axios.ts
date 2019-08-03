@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: Axios 类
- * @Date: 2019-05-16
- * @LastEditTime: 2019-06-03
- */
 import {
   AxiosRequestConfig,
   Method,

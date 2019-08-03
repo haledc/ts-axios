@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: CancelToken
- * @Date: 2019-05-23
- * @LastEditTime: 2019-05-24
- */
-
 import {
   CancelExecutor,
   CancelToken as CancelTokenInterface,
@@ -23,9 +16,7 @@ export default class CancelToken implements CancelTokenInterface {
 
   static source(): CancelTokenSource {
     let cancel!: Canceler
-    const token = new CancelToken(c => {
-      cancel = c
-    })
+    const token = new CancelToken(c => (cancel = c))
     return {
       cancel,
       token
@@ -40,9 +31,7 @@ export default class CancelToken implements CancelTokenInterface {
 
   constructor(executor: CancelExecutor) {
     let resolvePromise: ResolvePromise
-    this.promise = new Promise<Cancel>(resolve => {
-      resolvePromise = resolve
-    })
+    this.promise = new Promise<Cancel>(resolve => (resolvePromise = resolve))
 
     executor(message => {
       if (this.reason) {

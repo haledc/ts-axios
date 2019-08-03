@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test helpers/cookie.ts
- * @Date: 2019-05-31
- * @LastEditTime: 2019-05-31
- */
-
 import cookie from '../../src/helpers/cookie'
 
 describe('helpers:cookie', () => {

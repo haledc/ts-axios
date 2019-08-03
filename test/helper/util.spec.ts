@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test helpers/util.ts
- * @Date: 2019-05-31
- * @LastEditTime: 2019-06-02
- */
 import {
   isDate,
   isFormData,

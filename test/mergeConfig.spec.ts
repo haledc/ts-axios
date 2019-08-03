@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description:
- * @Date: 2019-06-03
- * @LastEditTime: 2019-06-03
- */
-
 import axios from '../src'
 import mergeConfig from '../src/core/mergeConfig'
 

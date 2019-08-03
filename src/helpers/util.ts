@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 一般的辅助函数
- * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
- */
 const toString = Object.prototype.toString
 
 export function isDate(val: any): val is Date {

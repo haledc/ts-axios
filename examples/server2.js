@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 跨域服务器
- * @Date: 2019-05-30
- * @LastEditTime: 2019-05-31
- */
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')

@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description:  test cancel/Cancel.ts
- * @Date: 2019-06-02
- * @LastEditTime: 2019-06-02
- */
 import Cancel, { isCancel } from '../../src/cancel/Cancel'
 
 describe('cancel:Cancel', () => {

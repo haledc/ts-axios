@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: axios 入口
- * @Date: 2019-05-16
- * @LastEditTime: 2019-06-03
- */
-
 import { AxiosStatic, AxiosRequestConfig } from './types'
 import Axios from './core/Axios'
 import { extend } from './helpers/util'

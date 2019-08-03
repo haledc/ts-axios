@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: axios 默认配置
- * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
- */
 import { AxiosRequestConfig } from './types'
 import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'

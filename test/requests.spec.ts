@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test axios request
- * @Date: 2019-06-03
- * @LastEditTime: 2019-06-06
- */
-
 import axios, { AxiosResponse } from '../src'
 import { getAjaxRequest } from './helper'
 import { AxiosError } from '../src/helpers/error'

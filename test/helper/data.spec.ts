@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test helpers/data.ts
- * @Date: 2019-05-31
- * @LastEditTime: 2019-05-31
- */
-
 import { transformRequest, transformResponse } from '../../src/helpers/data'
 
 describe('helpers:data', () => {

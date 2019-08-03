@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test cancel/CancelToken.ts
- * @Date: 2019-06-02
- * @LastEditTime: 2019-06-02
- */
-
 import CancelToken from '../../src/cancel/CancelToken'
 import Cancel from '../../src/cancel/Cancel'
 import { Canceler } from '../../src/types'

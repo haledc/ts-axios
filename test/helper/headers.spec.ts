@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test helpers/headers.ts
- * @Date: 2019-05-31
- * @LastEditTime: 2019-05-31
- */
-
 import { parseHeaders, processHeaders, flattenHeaders } from '../../src/helpers/headers'
 
 describe('helpers:headers', () => {

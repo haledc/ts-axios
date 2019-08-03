@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 转换函数
- * @Date: 2019-05-17
- * @LastEditTime: 2019-05-17
- */
 import { AxiosTransformer } from '../types'
 
 export default function transform(

@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test helpers/error.ts
- * @Date: 2019-05-31
- * @LastEditTime: 2019-05-31
- */
-
 import { createError } from '../../src/helpers/error'
 import { AxiosRequestConfig, AxiosResponse } from '../../src/types'
 

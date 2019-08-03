@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: server
- * @Date: 2019-05-16
- * @LastEditTime: 2019-05-31
- */
 const express = require('express')
 const bodyParser = require('body-parser')
 const webpack = require('webpack')

@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test axios interceptor
- * @Date: 2019-06-02
- * @LastEditTime: 2019-06-03
- */
-
 import axios, { AxiosRequestConfig, AxiosResponse } from '../src'
 import { getAjaxRequest } from './helper'
 

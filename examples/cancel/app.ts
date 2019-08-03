@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: cancel feature demo
- * @Date: 2019-05-23
- * @LastEditTime: 2019-05-23
- */
 import axios, { Canceler } from '../../src'
 
 const CancelToken = axios.CancelToken

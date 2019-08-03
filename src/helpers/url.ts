@@ -1,15 +1,6 @@
-/*
- * @Author: Hale
- * @Description: url 相关辅助函数
- * @Date: 2019-04-25
- * @LastEditTime: 2019-05-31
- */
 import { isDate, isPlainObject, isURLSearchParams } from './util'
 
-/**
- * 转义特殊符号
- * @param val
- */
+// 转义特殊符号
 function encode(val: string): string {
   return encodeURIComponent(val)
     .replace(/%40/g, '@')
@@ -21,11 +12,7 @@ function encode(val: string): string {
     .replace(/%5D/gi, ']')
 }
 
-/**
- * 拆分参数拼接成 URL
- * @param url
- * @param params
- */
+// 拆分参数拼接成 URL
 export function buildURL(
   url: string,
   params?: any,
@@ -79,7 +66,7 @@ export function buildURL(
       url = url.slice(0, markIndex)
     }
 
-    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
+    url += (url.includes('?') ? '&' : '?') + serializedParams
   }
 
   return url

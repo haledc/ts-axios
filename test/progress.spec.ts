@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test axios progress
- * @Date: 2019-06-03
- * @LastEditTime: 2019-06-03
- */
-
 import axios from '../src'
 import { getAjaxRequest } from './helper'
 

@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description:
- * @Date: 2019-04-25
- * @LastEditTime: 2019-05-31
- */
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')

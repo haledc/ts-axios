@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 发送请求相关
- * @Date: 2019-05-16
- * @LastEditTime: 2019-06-02
- */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import xhr from './xhr'
 import { buildURL, isAbsoluteURL, combineURL } from '../helpers/url'

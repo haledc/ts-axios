@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 测试默认配置 demo
- * @Date: 2019-05-16
- * @LastEditTime: 2019-05-17
- */
 import axios, { AxiosTransformer } from '../../src'
 import qs from 'qs'
 

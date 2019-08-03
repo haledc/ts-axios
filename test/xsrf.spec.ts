@@ -1,10 +1,3 @@
-/*
- * @Author: Hale
- * @Description: test xsrf
- * @Date: 2019-06-03
- * @LastEditTime: 2019-06-03
- */
-
 import axios from '../src'
 import { getAjaxRequest } from './helper'
 

@@ -1,9 +1,3 @@
-/*
- * @Author: Hale
- * @Description: 封装原生 XMLHttpRequest 为 Promise 对象
- * @Date: 2019-04-25
- * @LastEditTime: 2019-06-06
- */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
