@@ -19,7 +19,10 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
   if (!headers) return
 
   Object.keys(headers).forEach(name => {
-    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+    if (
+      name !== normalizedName &&
+      name.toUpperCase() === normalizedName.toUpperCase()
+    ) {
       headers[normalizedName] = headers[name]
       delete headers[name]
     }
@@ -30,15 +33,15 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
 export function parseHeaders(headers: string): any {
   let parsed = Object.create(null)
 
-  if (!headers) return parsed
+  if (!headers) {
+    return parsed
+  }
 
   headers.split('\r\n').forEach(line => {
     let [key, ...vals] = line.split(':') // 字段可能有多个 : 比如 date 字段
     key = key.trim().toLowerCase()
 
-    if (!key) {
-      return
-    }
+    if (!key) return
 
     const val = vals.join(':').trim()
 
@@ -58,7 +61,16 @@ export function flattenHeaders(headers: any, method: Method): any {
   // 合并有效字段
   headers = deepMerge(headers.common, headers[method], headers)
 
-  const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']
+  const methodsToDelete = [
+    'delete',
+    'get',
+    'head',
+    'options',
+    'post',
+    'put',
+    'patch',
+    'common'
+  ]
 
   // 提取后，删除原来的无效字段
   methodsToDelete.forEach(method => delete headers[method])

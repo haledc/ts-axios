@@ -56,18 +56,16 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     // 处理事件相关
     function addEvents(): void {
       request.onreadystatechange = function handleLoad() {
-        if (request.readyState !== 4) {
-          return
-        }
+        if (request.readyState !== 4) return
 
         // 网络错误或者超时错误
-        if (request.status === 0) {
-          return
-        }
+        if (request.status === 0) return
 
         const responseHeaders = parseHeaders(request.getAllResponseHeaders())
         const responseData =
-          responseType && responseType !== 'text' ? request.response : request.responseText
+          responseType && responseType !== 'text'
+            ? request.response
+            : request.responseText
 
         const response: AxiosResponse = {
           data: responseData,
@@ -88,7 +86,14 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
       // 监听过期时间
       request.ontimeout = function handleTimeout() {
-        reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', request))
+        reject(
+          createError(
+            `Timeout of ${timeout} ms exceeded`,
+            config,
+            'ECONNABORTED',
+            request
+          )
+        )
       }
 
       if (onDownloadProgress) {
@@ -115,7 +120,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
 
       if (auth) {
-        headers['Authorization'] = 'Basic ' + btoa(auth.username + ':' + auth.password)
+        headers['Authorization'] =
+          'Basic ' + btoa(auth.username + ':' + auth.password)
       }
 
       // 设置请求头

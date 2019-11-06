@@ -105,7 +105,11 @@ export default class Axios implements AxiosInterface {
   }
 
   // 无数据的请求
-  private requestMethodWithoutData(method: Method, url: string, config?: AxiosRequestConfig) {
+  private requestMethodWithoutData(
+    method: Method,
+    url: string,
+    config?: AxiosRequestConfig
+  ) {
     return this.request(
       Object.assign(config || {}, {
         method,

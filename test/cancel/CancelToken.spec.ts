@@ -60,7 +60,11 @@ describe('cancel: CancelToken', () => {
         fail('Expected throwIfRequested to throw.')
       } catch (thrown) {
         if (!(thrown instanceof Cancel)) {
-          fail('Expected throwIfRequested to throw a Cancel, but test threw ' + thrown + '.')
+          fail(
+            'Expected throwIfRequested to throw a Cancel, but test threw ' +
+              thrown +
+              '.'
+          )
         }
         expect(thrown.message).toBe('Operation has been canceled.')
       }

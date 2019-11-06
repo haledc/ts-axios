@@ -33,9 +33,7 @@ export function buildURL(
 
     Object.keys(params).forEach(key => {
       const val = params[key]
-      if (val === null || typeof val === 'undefined') {
-        return
-      }
+      if (val === null || typeof val === 'undefined') return
 
       let values = []
 
@@ -80,7 +78,8 @@ interface URLOrigin {
 export function isURLSameOrigin(requestURL: string): boolean {
   const parsedOrigin = resolveURL(requestURL)
   return (
-    parsedOrigin.protocol === currentOrigin.protocol && parsedOrigin.host === currentOrigin.host
+    parsedOrigin.protocol === currentOrigin.protocol &&
+    parsedOrigin.host === currentOrigin.host
   )
 }
 
@@ -102,5 +101,7 @@ export function isAbsoluteURL(url: string): boolean {
 }
 
 export function combineURL(baseURL: string, relativeURL?: string): string {
-  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL
 }

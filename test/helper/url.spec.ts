@@ -1,4 +1,9 @@
-import { buildURL, isAbsoluteURL, isURLSameOrigin, combineURL } from '../../src/helpers/url'
+import {
+  buildURL,
+  isAbsoluteURL,
+  isURLSameOrigin,
+  combineURL
+} from '../../src/helpers/url'
 
 describe('helpers:url', () => {
   describe('buildURL', () => {
@@ -87,7 +92,9 @@ describe('helpers:url', () => {
     })
 
     test('should support URLSearchParams', () => {
-      expect(buildURL('/foo', new URLSearchParams('bar=baz'))).toBe('/foo?bar=baz')
+      expect(buildURL('/foo', new URLSearchParams('bar=baz'))).toBe(
+        '/foo?bar=baz'
+      )
     })
   })
 
@@ -115,23 +122,33 @@ describe('helpers:url', () => {
 
   describe('combineURL', () => {
     test('should combine URL', () => {
-      expect(combineURL('https://api.github.com', '/users')).toBe('https://api.github.com/users')
+      expect(combineURL('https://api.github.com', '/users')).toBe(
+        'https://api.github.com/users'
+      )
     })
 
     test('should remove duplicate slashes', () => {
-      expect(combineURL('https://api.github.com/', '/users')).toBe('https://api.github.com/users')
+      expect(combineURL('https://api.github.com/', '/users')).toBe(
+        'https://api.github.com/users'
+      )
     })
 
     test('should insert missing slash', () => {
-      expect(combineURL('https://api.github.com', 'users')).toBe('https://api.github.com/users')
+      expect(combineURL('https://api.github.com', 'users')).toBe(
+        'https://api.github.com/users'
+      )
     })
 
     test('should not insert slash when relative url missing / empty', () => {
-      expect(combineURL('https://api.github.com/users', '')).toBe('https://api.github.com/users')
+      expect(combineURL('https://api.github.com/users', '')).toBe(
+        'https://api.github.com/users'
+      )
     })
 
     test('should allow a single slash relative url ', () => {
-      expect(combineURL('https://api.github.com/users', '/')).toBe('https://api.github.com/users/')
+      expect(combineURL('https://api.github.com/users', '/')).toBe(
+        'https://api.github.com/users/'
+      )
     })
   })
 

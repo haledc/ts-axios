@@ -1,4 +1,8 @@
-import { parseHeaders, processHeaders, flattenHeaders } from '../../src/helpers/headers'
+import {
+  parseHeaders,
+  processHeaders,
+  flattenHeaders
+} from '../../src/helpers/headers'
 
 describe('helpers:headers', () => {
   describe('parseHeaders', () => {

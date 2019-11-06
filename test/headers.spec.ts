@@ -48,7 +48,11 @@ describe('headers', () => {
     axios.post('/foo', 'fizz=buzz')
 
     return getAjaxRequest().then(request => {
-      testHeaderValue(request.requestHeaders, 'Content-Type', 'application/x-www-form-urlencoded')
+      testHeaderValue(
+        request.requestHeaders,
+        'Content-Type',
+        'application/x-www-form-urlencoded'
+      )
     })
   })
 
@@ -59,7 +63,11 @@ describe('headers', () => {
     })
 
     return getAjaxRequest().then(request => {
-      testHeaderValue(request.requestHeaders, 'Content-Type', 'application/json;charset=utf-8')
+      testHeaderValue(
+        request.requestHeaders,
+        'Content-Type',
+        'application/json;charset=utf-8'
+      )
     })
   })
 
@@ -75,7 +83,11 @@ describe('headers', () => {
     axios.post('/foo', false)
 
     return getAjaxRequest().then(request => {
-      testHeaderValue(request.requestHeaders, 'Content-Type', 'application/x-www-form-urlencoded')
+      testHeaderValue(
+        request.requestHeaders,
+        'Content-Type',
+        'application/x-www-form-urlencoded'
+      )
     })
   })
 

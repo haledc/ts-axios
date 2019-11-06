@@ -34,9 +34,8 @@ export default class CancelToken implements CancelTokenInterface {
     this.promise = new Promise<Cancel>(resolve => (resolvePromise = resolve))
 
     executor(message => {
-      if (this.reason) {
-        return
-      }
+      if (this.reason) return
+
       this.reason = new Cancel(message)
       resolvePromise(this.reason)
     })
