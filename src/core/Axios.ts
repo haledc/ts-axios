@@ -47,6 +47,7 @@ export default class Axios implements AxiosInterface {
     config = mergeConfig(this.defaults, config)
     config.method = config.method.toLowerCase()
 
+    // 默认的发送请求
     const chain: PromiseChain<any>[] = [
       {
         resolved: dispatchRequest,
@@ -63,7 +64,7 @@ export default class Axios implements AxiosInterface {
     let promise = Promise.resolve(config)
 
     while (chain.length) {
-      // 从数组前面一个个取出
+      // 从数组前面一个个取出异步执行
       const { resolved, rejected } = chain.shift()!
       promise = promise.then(resolved, rejected)
     }

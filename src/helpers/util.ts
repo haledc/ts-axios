@@ -31,7 +31,7 @@ export function deepMerge(...objs: any[]): any {
       Object.keys(obj).forEach(key => {
         const val = obj[key]
         if (isPlainObject(val)) {
-          // result[key] 如果已经是个对象了,需要合并
+          // result[key] 如果已经是个对象了，需要再次合并
           if (isPlainObject(result[key])) {
             result[key] = deepMerge(result[key], val) // 递归
           } else {

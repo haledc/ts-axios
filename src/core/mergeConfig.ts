@@ -8,7 +8,7 @@ function defaultStrat(val1: any, val2: any): any {
   return typeof val2 !== 'undefined' ? val2 : val1
 }
 
-// 只取 val2 合并策略，忽略默认配置
+// 只取 val2 合并策略（用户配置），忽略默认配置
 function fromVal2Strat(val1: any, val2: any): any {
   if (typeof val2 !== 'undefined') {
     return val2
