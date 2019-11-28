@@ -1,5 +1,4 @@
-// @ts-ignore
-export function getAjaxRequest(): Promise<jasmineAjaxRequest> {
+export function getAjaxRequest(): Promise<any> {
   return new Promise(resolve => {
     setTimeout(() => {
       return resolve(jasmine.Ajax.requests.mostRecent())
