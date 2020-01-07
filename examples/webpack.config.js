@@ -24,9 +24,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        enforce: 'pre',
-        use: [{ loader: 'tslint-loader' }]
+        // test: /\.ts$/,
+        // enforce: 'pre',
+        // use: [{ loader: 'tslint-loader' }]
       },
       {
         test: /\.tsx?$/,
@@ -43,5 +43,8 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js']
   },
 
-  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ]
 }
