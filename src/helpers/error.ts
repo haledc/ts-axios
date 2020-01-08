@@ -20,8 +20,6 @@ export class AxiosError extends Error {
     this.request = request
     this.response = response
     this.isAxiosError = true
-
-    Object.setPrototypeOf(this, AxiosError.prototype) // 设置 this 的原型对象为类的原型
   }
 }
 
