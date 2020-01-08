@@ -31,7 +31,7 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
 
 // 解析响应头
 export function parseHeaders(headers: string): any {
-  let parsed = Object.create(null)
+  const parsed = Object.create(null)
 
   if (!headers) {
     return parsed
