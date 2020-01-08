@@ -5,16 +5,13 @@ export function isDate(val: any): val is Date {
 }
 
 export function isObject(val: any): val is Object {
-  return val !== null && typeof val === 'object'
+  return val != null && typeof val === 'object'
 }
 
-// 判断是否是 JS 原生对象
-// 不包括 FormData ArrayBuffer 等对象
 export function isPlainObject(val: any): val is Object {
   return toString.call(val) === '[object Object]'
 }
 
-// 对象扩展
 export function extend<T, U>(to: T, from: U): T & U {
   for (const key in from) {
     ;(to as T & U)[key] = from[key] as any
@@ -47,12 +44,10 @@ export function deepMerge(...objs: any[]): any {
   return result
 }
 
-// 判断是否是 FormData
 export function isFormData(val: any): boolean {
   return typeof val !== 'undefined' && val instanceof FormData
 }
 
-// 判断是否是 搜索参数
 export function isURLSearchParams(val: any): val is URLSearchParams {
   return typeof val !== 'undefined' && val instanceof URLSearchParams
 }

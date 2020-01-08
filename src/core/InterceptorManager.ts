@@ -19,7 +19,7 @@ export default class InterceptorManager<T> {
 
   forEach(fn: (interceptor: Interceptor<T>) => void): void {
     this.interceptors.forEach(interceptor => {
-      if (interceptor !== null) {
+      if (interceptor != null) {
         fn(interceptor)
       }
     })

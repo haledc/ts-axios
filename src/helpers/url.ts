@@ -33,7 +33,7 @@ export function buildURL(
 
     Object.keys(params).forEach(key => {
       const val = params[key]
-      if (val === null || typeof val === 'undefined') return
+      if (val == null) return
 
       let values = []
 

@@ -126,7 +126,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
       // 设置请求头
       Object.keys(headers).forEach(name => {
-        if (data === null && name.toLowerCase() === 'content-type') {
+        if (data == null && name.toLowerCase() === 'content-type') {
           delete headers[name]
         } else {
           request.setRequestHeader(name, headers[name])
