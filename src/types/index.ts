@@ -15,7 +15,7 @@ export type Method =
   | 'patch'
   | 'PATCH'
 
-// 请求配置选项
+// 请求的选项
 export interface AxiosRequestConfig {
   url?: string
   method?: Method
@@ -40,7 +40,7 @@ export interface AxiosRequestConfig {
   [propName: string]: any // 索引签名
 }
 
-// 请求响应
+// 响应
 export interface AxiosResponse<T = any> {
   data: T
   status: number
@@ -50,7 +50,7 @@ export interface AxiosResponse<T = any> {
   request: any
 }
 
-// 请求响应的 Promise 类型
+// 响应的 Promise 类型
 export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {}
 
 // 错误类型
@@ -62,7 +62,7 @@ export interface AxiosError extends Error {
   isAxiosError: boolean
 }
 
-// Axios 实例类的接口
+// Axios 类的接口
 export interface Axios {
   defaults: AxiosRequestConfig
 
@@ -102,22 +102,17 @@ export interface Axios {
   ): AxiosPromise<T>
 }
 
-// 实例对象
+// Axios 实例
 export interface AxiosInstance extends Axios {
   <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
-
-  // 重载，处理 2 个参数的情况
   <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
-// 静态实例
+// Axios 静态对象
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
-
   all<T>(promise: Array<T | Promise<T>>): Promise<T[]>
-
   spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
-
   Axios: AxiosClassStatic
 
   // 添加 cancel 属性
@@ -126,10 +121,9 @@ export interface AxiosStatic extends AxiosInstance {
   isCancel: (value: any) => boolean
 }
 
-// 拦截器接口
+// 拦截器
 export interface AxiosInterceptorManager<T> {
   use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
-
   eject(id: number): void
 }
 
@@ -146,7 +140,7 @@ export interface AxiosTransformer {
   (data: any, headers?: any): any
 }
 
-// 实例类型取消功能接口
+// 取消接口
 export interface CancelToken {
   promise: Promise<Cancel>
   reason?: Cancel
@@ -154,12 +148,10 @@ export interface CancelToken {
   throwIfRequested(): void
 }
 
-// 取消功能方法的接口
 export interface Canceler {
   (message?: string): void
 }
 
-// 类构造函数函数的接口
 export interface CancelExecutor {
   (cancel: Canceler): void
 }
@@ -169,7 +161,7 @@ export interface CancelTokenSource {
   cancel: Canceler
 }
 
-// 取消功能静态类型接口
+// 取消静态接口
 export interface CancelTokenStatic {
   new (executor: CancelExecutor): CancelToken
 
