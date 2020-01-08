@@ -47,7 +47,7 @@ export default class Axios implements AxiosInterface {
     config = mergeConfig(this.defaults, config)
     config.method = config.method.toLowerCase()
 
-    // 默认的发送请求
+    // 执行链
     const chain: PromiseChain<any>[] = [
       {
         resolved: dispatchRequest,
@@ -55,16 +55,15 @@ export default class Axios implements AxiosInterface {
       }
     ]
 
-    // unshift => 类似栈，从数组前面添加，执行请求拦截时，先拦截后添加的
+    // 请求前拦截 -> unshift
     this.interceptors.request.forEach(interceptor => chain.unshift(interceptor))
 
-    // push => 类似队列，从数组后面添加，执行响应拦截时，先拦截先添加的
+    // 请求后拦截 -> push
     this.interceptors.response.forEach(interceptor => chain.push(interceptor))
 
     let promise = Promise.resolve(config)
 
     while (chain.length) {
-      // 从数组前面一个个取出异步执行
       const { resolved, rejected } = chain.shift()!
       promise = promise.then(resolved, rejected)
     }
@@ -72,59 +71,44 @@ export default class Axios implements AxiosInterface {
     return promise
   }
 
-  get(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this.requestMethodWithoutData('get', url, config)
-  }
-
-  delete(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this.requestMethodWithoutData('delete', url, config)
-  }
-
-  head(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this.requestMethodWithoutData('head', url, config)
-  }
-
-  options(url: string, config?: AxiosRequestConfig): AxiosPromise {
-    return this.requestMethodWithoutData('options', url, config)
-  }
-
-  post(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this.requestMethodWithData('post', url, data, config)
-  }
-
-  put(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this.requestMethodWithData('put', url, data, config)
-  }
-
-  patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
-    return this.requestMethodWithData('patch', url, data, config)
-  }
-
   getUri(config: AxiosRequestConfig): string {
     config = mergeConfig(this.defaults, config)
     return transformURL(config)
   }
 
-  // 无数据的请求
-  private requestMethodWithoutData(
-    method: Method,
-    url: string,
-    config?: AxiosRequestConfig
-  ) {
-    return this.request(
-      Object.assign(config || {}, {
-        method,
-        url
-      })
-    )
+  get(url: string, config?: AxiosRequestConfig): AxiosPromise {
+    return this.requestMethod('get', url, config)
   }
 
-  // 有数据的请求
-  private requestMethodWithData(
+  delete(url: string, config?: AxiosRequestConfig): AxiosPromise {
+    return this.requestMethod('delete', url, config)
+  }
+
+  head(url: string, config?: AxiosRequestConfig): AxiosPromise {
+    return this.requestMethod('head', url, config)
+  }
+
+  options(url: string, config?: AxiosRequestConfig): AxiosPromise {
+    return this.requestMethod('options', url, config)
+  }
+
+  post(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this.requestMethod('post', url, config, data)
+  }
+
+  put(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this.requestMethod('put', url, config, data)
+  }
+
+  patch(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise {
+    return this.requestMethod('patch', url, config, data)
+  }
+
+  private requestMethod(
     method: Method,
     url: string,
-    data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
+    data?: any
   ) {
     return this.request(
       Object.assign(config || {}, {
