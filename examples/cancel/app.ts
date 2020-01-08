@@ -9,18 +9,20 @@ axios
   })
   .catch(err => {
     if (axios.isCancel(err)) {
-      console.log('Request canceled', err.message)
+      console.log('Request canceled:', err.message)
     }
   })
 
 setTimeout(() => {
   source.cancel('Operation canceled by the user.')
 
-  axios.post('/cancel/post', { a: 1 }, { cancelToken: source.token }).catch(err => {
-    if (axios.isCancel(err)) {
-      console.log(err.message)
-    }
-  })
+  axios
+    .post('/cancel/post', { a: 1 }, { cancelToken: source.token })
+    .catch(err => {
+      if (axios.isCancel(err)) {
+        console.log(err.message)
+      }
+    })
 }, 100)
 
 let cancel: Canceler

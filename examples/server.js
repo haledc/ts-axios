@@ -41,9 +41,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-app.use(multiparty({
-  upload: path.resolve(__dirname, 'upload-file')
-}))
+app.use(
+  multiparty({
+    upload: path.resolve(__dirname, 'upload-file')
+  })
+)
 
 registerSimpleRouter()
 registerBaseRouter()
