@@ -14,7 +14,7 @@ function testHeaderValue(headers: any, key: string, val?: string): void {
 
   if (!hasFound) {
     if (typeof val === 'undefined') {
-      expect(headers.hasOwnProperty(key)).toBeFalsy()
+      expect(headers.hasOwnProperty(key)).toBe(false)
     } else {
       throw new Error(key + ' was not found in header')
     }

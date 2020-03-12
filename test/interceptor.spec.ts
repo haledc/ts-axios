@@ -150,10 +150,10 @@ describe('interceptor', () => {
 
         setTimeout(() => {
           expect(response.data).toBe('stuff')
-          expect(response.headers).toBeNull()
+          expect(response.headers).toBe(null)
           expect(response.status).toBe(500)
           expect(response.statusText).toBe('ERR')
-          expect(response.request).toBeNull()
+          expect(response.request).toBe(null)
           expect(response.config).toEqual({})
           done()
         }, 100)

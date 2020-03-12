@@ -7,10 +7,10 @@ describe('cancel:Cancel', () => {
   })
 
   test('should returns true if value is a Cancel', () => {
-    expect(isCancel(new Cancel())).toBeTruthy()
+    expect(isCancel(new Cancel())).toBe(true)
   })
 
   test('should returns false if value is not a Cancel', () => {
-    expect(isCancel({ foo: 'bar' })).toBeFalsy()
+    expect(isCancel({ foo: 'bar' })).toBe(false)
   })
 })

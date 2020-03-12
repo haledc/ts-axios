@@ -20,6 +20,7 @@ describe('helpers:headers', () => {
       expect(parsed['connection']).toBe('keep-alive')
       expect(parsed['transfer-encoding']).toBe('chunked')
       expect(parsed['date']).toBe('Tue, 21 May 2019 09:23:44 GMT')
+      expect(parsed[':aa']).toBe(undefined)
       expect(parsed['key']).toBe('')
     })
 
@@ -37,7 +38,7 @@ describe('helpers:headers', () => {
       processHeaders(headers, {})
 
       expect(headers['Content-Type']).toBe('foo/bar')
-      expect(headers['conTenT-Type']).toBeUndefined()
+      expect(headers['conTenT-Type']).toBe(undefined)
       expect(headers['Content-length']).toBe(1024)
     })
 
@@ -48,8 +49,8 @@ describe('helpers:headers', () => {
     })
 
     test('should do nothing if headers is undefined or null', () => {
-      expect(processHeaders(undefined, {})).toBeUndefined()
-      expect(processHeaders(null, {})).toBeNull()
+      expect(processHeaders(undefined, {})).toBe(undefined)
+      expect(processHeaders(null, {})).toBe(null)
     })
   })
 
@@ -89,8 +90,8 @@ describe('helpers:headers', () => {
     })
 
     test('should do nothing if headers is undefined or null', () => {
-      expect(flattenHeaders(undefined, 'get')).toBeUndefined()
-      expect(flattenHeaders(null, 'post')).toBeNull()
+      expect(flattenHeaders(undefined, 'get')).toBe(undefined)
+      expect(flattenHeaders(null, 'post')).toBe(null)
     })
   })
 })

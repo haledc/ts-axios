@@ -18,9 +18,9 @@ describe('xsrf', () => {
     axios('/foo')
 
     return getAjaxRequest().then(request => {
-      expect(
-        request.requestHeaders[axios.defaults.xsrfHeaderName!]
-      ).toBeUndefined()
+      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(
+        undefined
+      )
     })
   })
 
@@ -42,9 +42,9 @@ describe('xsrf', () => {
     axios('http://example.com/')
 
     return getAjaxRequest().then(request => {
-      expect(
-        request.requestHeaders[axios.defaults.xsrfHeaderName!]
-      ).toBeUndefined()
+      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(
+        undefined
+      )
     })
   })
 

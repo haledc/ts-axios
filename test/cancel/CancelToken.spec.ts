@@ -28,7 +28,7 @@ describe('cancel: CancelToken', () => {
         /* do nothing */
       })
 
-      expect(token.reason).toBeUndefined()
+      expect(token.reason).toBe(undefined)
     })
   })
 
@@ -84,7 +84,7 @@ describe('cancel: CancelToken', () => {
 
       expect(source.token).toEqual(expect.any(CancelToken))
       expect(source.cancel).toEqual(expect.any(Function))
-      expect(source.token.reason).toBeUndefined()
+      expect(source.token.reason).toBe(undefined)
 
       source.cancel('Operation has been canceled.')
 

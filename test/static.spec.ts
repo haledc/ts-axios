@@ -12,7 +12,7 @@ describe('static', () => {
       .catch(error => console.log(error))
 
     setTimeout(() => {
-      expect(isFulfilled).toBeTruthy()
+      expect(isFulfilled).toBe(true)
       done()
     }, 100)
   })
@@ -35,7 +35,7 @@ describe('static', () => {
       .catch(error => console.log(error))
 
     setTimeout(() => {
-      expect(isFulfilled).toBeTruthy()
+      expect(isFulfilled).toBe(true)
       expect(sum).toBe(123 + 456)
       expect(result).toBe('hello world')
       done()

@@ -52,7 +52,7 @@ describe('requests', () => {
     function next(reason: AxiosResponse | AxiosError) {
       expect(resolveSpy).not.toHaveBeenCalled()
       expect(rejectSpy).toHaveBeenCalled()
-      expect(reason instanceof Error).toBeTruthy()
+      expect(reason instanceof Error).toBe(true)
       expect((reason as AxiosError).message).toBe('Network Error')
       expect(reason.request).toEqual(expect.any(XMLHttpRequest))
 
@@ -74,7 +74,7 @@ describe('requests', () => {
         request.eventBus.trigger('timeout')
 
         setTimeout(() => {
-          expect(err instanceof Error).toBeTruthy()
+          expect(err instanceof Error).toBe(true)
           expect(err.message).toBe('Timeout of 2000 ms exceeded')
           done()
         }, 100)
@@ -100,7 +100,7 @@ describe('requests', () => {
     function next(reason: AxiosError | AxiosResponse) {
       expect(resolveSpy).not.toHaveBeenCalled()
       expect(rejectSpy).toHaveBeenCalled()
-      expect(reason instanceof Error).toBeTruthy()
+      expect(reason instanceof Error).toBe(true)
       expect((reason as AxiosError).message).toBe(
         'Request failed with status code 500'
       )

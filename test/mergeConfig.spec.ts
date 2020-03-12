@@ -40,9 +40,9 @@ describe('mergeConfig', () => {
     }
     const merged = mergeConfig(localDefaults, {})
 
-    expect(merged.url).toBeUndefined()
-    expect(merged.params).toBeUndefined()
-    expect(merged.data).toBeUndefined()
+    expect(merged.url).toBe(undefined)
+    expect(merged.params).toBe(undefined)
+    expect(merged.data).toBe(undefined)
   })
 
   test('should return default headers if pass config2 with undefined', () => {

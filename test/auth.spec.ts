@@ -38,7 +38,7 @@ describe('auth', () => {
         )
       })
       .catch(error => {
-        expect(/characters/i.test(error.message)).toBeTruthy()
+        expect(/characters/i.test(error.message)).toBe(true)
       })
   })
 })

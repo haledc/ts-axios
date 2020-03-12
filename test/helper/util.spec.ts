@@ -1,7 +1,6 @@
 import {
   isDate,
   isFormData,
-  isObject,
   isPlainObject,
   isURLSearchParams,
   extend,
@@ -11,23 +10,23 @@ import {
 describe('helpers:util', () => {
   describe('isXX', () => {
     test('should validate Date', () => {
-      expect(isDate(new Date())).toBeTruthy()
-      expect(isDate(Date.now())).toBeFalsy()
+      expect(isDate(new Date())).toBe(true)
+      expect(isDate(Date.now())).toBe(false)
     })
 
     test('should validate PlainObject', () => {
-      expect(isPlainObject({})).toBeTruthy()
-      expect(isPlainObject(new Date())).toBeFalsy()
+      expect(isPlainObject({})).toBe(true)
+      expect(isPlainObject(new Date())).toBe(false)
     })
 
     test('should validate FormData', () => {
-      expect(isFormData(new FormData())).toBeTruthy()
-      expect(isFormData({})).toBeFalsy()
+      expect(isFormData(new FormData())).toBe(true)
+      expect(isFormData({})).toBe(false)
     })
 
     test('should validate URLSearchParams', () => {
-      expect(isURLSearchParams(new URLSearchParams())).toBeTruthy()
-      expect(isURLSearchParams('foo=1&bar=2')).toBeFalsy()
+      expect(isURLSearchParams(new URLSearchParams())).toBe(true)
+      expect(isURLSearchParams('foo=1&bar=2')).toBe(false)
     })
   })
 
