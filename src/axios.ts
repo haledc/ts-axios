@@ -8,8 +8,8 @@ import CancelToken from './cancel/CancelToken'
 
 function createInstance(config: AxiosRequestConfig): AxiosStatic {
   const context = new Axios(config)
-  const instance = Axios.prototype.request.bind(context) // 借用 Axios 的 request 方法
-  extend(instance, context) // 扩展 Axios 实例方法和属性
+  const instance = Axios.prototype.request.bind(context)
+  extend(instance, context)
   return instance as AxiosStatic
 }
 

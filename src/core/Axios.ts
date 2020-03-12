@@ -43,11 +43,9 @@ export default class Axios implements AxiosInterface {
       config = url
     }
 
-    // 合并配置
     config = mergeConfig(this.defaults, config)
     config.method = config.method.toLowerCase()
 
-    // 执行链
     const chain: PromiseChain<any>[] = [
       {
         resolved: dispatchRequest,
@@ -55,10 +53,7 @@ export default class Axios implements AxiosInterface {
       }
     ]
 
-    // 请求前拦截 -> unshift
     this.interceptors.request.forEach(interceptor => chain.unshift(interceptor))
-
-    // 请求后拦截 -> push
     this.interceptors.response.forEach(interceptor => chain.push(interceptor))
 
     let promise = Promise.resolve(config)

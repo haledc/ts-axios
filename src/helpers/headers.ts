@@ -1,8 +1,6 @@
 import { isPlainObject, deepMerge } from './util'
 import { Method } from '../types'
 
-// 处理请求头
-// 当请求的数据是对象时，设置请求头文本类型
 export function processHeaders(headers: any, data: any): any {
   normalizeHeaderName(headers, 'Content-Type')
 
@@ -29,7 +27,6 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
   })
 }
 
-// 解析响应头
 export function parseHeaders(headers: string): any {
   const parsed = Object.create(null)
 
@@ -51,14 +48,11 @@ export function parseHeaders(headers: string): any {
   return parsed
 }
 
-// 扁平化请求头
-// 提取 header 头的有效字段
 export function flattenHeaders(headers: any, method: Method): any {
   if (!headers) {
     return headers
   }
 
-  // 合并有效字段
   headers = deepMerge(headers.common, headers[method], headers)
 
   const methodsToDelete = [
@@ -72,7 +66,6 @@ export function flattenHeaders(headers: any, method: Method): any {
     'common'
   ]
 
-  // 提取后，删除原来的无效字段
   methodsToDelete.forEach(method => delete headers[method])
 
   return headers

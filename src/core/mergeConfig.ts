@@ -3,19 +3,16 @@ import { isPlainObject, deepMerge } from '../helpers/util'
 
 const strats = Object.create(null)
 
-// 默认合并策略 -> 有用户配置使用用户配置（包括 null），没有则使用默认配置
 function defaultStrat(val1: any, val2: any): any {
   return typeof val2 !== 'undefined' ? val2 : val1
 }
 
-// 替换合并策略 -> 使用用户配置，忽略默认配置
 function replaceStrat(val1: any, val2: any): any {
   if (typeof val2 !== 'undefined') {
     return val2
   }
 }
 
-// 深度合并策略
 function deepMergeStrat(val1: any, val2: any): any {
   if (isPlainObject(val2)) {
     return deepMerge(val1, val2)
@@ -28,17 +25,15 @@ function deepMergeStrat(val1: any, val2: any): any {
   }
 }
 
-// 使用替换合并策略的字段
-const stratKeysReplace = ['url', 'params', 'data']
+const stratKeysForReplace = ['url', 'params', 'data']
 
-stratKeysReplace.forEach(key => {
+stratKeysForReplace.forEach(key => {
   strats[key] = replaceStrat
 })
 
-// 使用深度合并策略的字段
-const stratKeysDeepMerge = ['headers', 'auth']
+const stratKeysForDeepMerge = ['headers', 'auth']
 
-stratKeysDeepMerge.forEach(key => {
+stratKeysForDeepMerge.forEach(key => {
   strats[key] = deepMergeStrat
 })
 

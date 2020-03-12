@@ -1,14 +1,9 @@
 import { isPlainObject } from './util'
 
-// 处理请求的数据
 export function transformRequest(data: any): any {
-  if (isPlainObject(data)) {
-    return JSON.stringify(data)
-  }
-  return data
+  return isPlainObject(data) ? JSON.stringify(data) : data
 }
 
-// 处理响应的数据
 export function transformResponse(data: any): any {
   if (typeof data === 'string') {
     try {

@@ -38,7 +38,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     request.send(data)
 
-    // 处理配置相关
     function configureRequest(): void {
       if (responseType) {
         request.responseType = responseType
@@ -53,12 +52,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
     }
 
-    // 处理事件相关
     function addEvents(): void {
       request.onreadystatechange = function handleLoad() {
         if (request.readyState !== 4) return
 
-        // 网络错误或者超时错误
+        // net error or timeout
         if (request.status === 0) return
 
         const responseHeaders = parseHeaders(request.getAllResponseHeaders())
@@ -79,12 +77,10 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         handleResponse(response)
       }
 
-      // 监听错误
       request.onerror = function handleError() {
         reject(createError('Network Error', config, null, request))
       }
 
-      // 监听过期时间
       request.ontimeout = function handleTimeout() {
         reject(
           createError(
@@ -105,7 +101,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
     }
 
-    // 处理请求头
     function processHeaders(): void {
       if (isFormData(data)) {
         delete headers['Content-Type']
@@ -124,7 +119,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
           'Basic ' + btoa(auth.username + ':' + auth.password)
       }
 
-      // 设置请求头
       Object.keys(headers).forEach(name => {
         if (data == null && name.toLowerCase() === 'content-type') {
           delete headers[name]
@@ -134,7 +128,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       })
     }
 
-    // 处理取消
     function processCancel(): void {
       if (cancelToken) {
         cancelToken.promise
@@ -146,7 +139,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       }
     }
 
-    // 处理响应
     function handleResponse(response: AxiosResponse): void {
       if (!validateStatus || validateStatus(response.status)) {
         resolve(response)

@@ -45,7 +45,7 @@ const methodsWithData = ['post', 'put', 'patch']
 
 methodsWithData.forEach(method => {
   defaults.headers[method] = {
-    'Content-Type': 'application/x-www-form-urlencoded' // 设置为 formData 结构
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
 })
 
