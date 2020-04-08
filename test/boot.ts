@@ -1,7 +1,7 @@
 const JasmineCore = require('jasmine-core')
 
 // @ts-ignore
-global.getJasmineRequireObj = function() {
+global.getJasmineRequireObj = function () {
   return JasmineCore
 }
 

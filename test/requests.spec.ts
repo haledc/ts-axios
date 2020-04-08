@@ -44,10 +44,7 @@ describe('requests', () => {
 
     jasmine.Ajax.uninstall()
 
-    return axios('/foo')
-      .then(resolveSpy)
-      .catch(rejectSpy)
-      .then(next)
+    return axios('/foo').then(resolveSpy).catch(rejectSpy).then(next)
 
     function next(reason: AxiosResponse | AxiosError) {
       expect(resolveSpy).not.toHaveBeenCalled()
