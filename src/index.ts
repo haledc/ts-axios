@@ -1,5 +1,5 @@
-import axios from './axios'
+import axios from "./axios";
 
-export * from './types'
+export * from "./types";
 
-export default axios
+export default axios;
