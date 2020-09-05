@@ -1,229 +1,227 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const webpackConfig = require('./webpack.config')
-const multiparty = require('connect-multiparty')
-const cookieParser = require('cookie-parser')
-const path = require('path')
-const atob = require('atob')
+const express = require("express");
+const bodyParser = require("body-parser");
+const webpack = require("webpack");
+const webpackDevMiddleware = require("webpack-dev-middleware");
+const webpackHotMiddleware = require("webpack-hot-middleware");
+const webpackConfig = require("./webpack.config");
+const multiparty = require("connect-multiparty");
+const cookieParser = require("cookie-parser");
+const path = require("path");
+const atob = require("atob");
 
-require('./server2')
+require("./server2");
 
-const app = express()
-const router = express.Router()
-const compiler = webpack(webpackConfig)
+const app = express();
+const router = express.Router();
+const compiler = webpack(webpackConfig);
 
 app.use(
   webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
     stats: {
       colors: true,
-      chunks: false
-    }
+      chunks: false,
+    },
   })
-)
+);
 
-app.use(webpackHotMiddleware(compiler))
+app.use(webpackHotMiddleware(compiler));
 
 app.use(
   express.static(__dirname, {
     setHeaders(res) {
-      res.cookie('XSRF-TOKEN-D', '123abc')
-    }
+      res.cookie("XSRF-TOKEN-D", "123abc");
+    },
   })
-)
+);
 
-app.use(express.static(__dirname))
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(
   multiparty({
-    upload: path.resolve(__dirname, 'upload-file')
+    upload: path.resolve(__dirname, "upload-file"),
   })
-)
+);
 
-registerSimpleRouter()
-registerBaseRouter()
-registerErrorRouter()
-registerExtendRouter()
-registerInterceptorRouter()
-registerConfigRouter()
-registerCancelRouter()
-registerMoreRouter()
+registerSimpleRouter();
+registerBaseRouter();
+registerErrorRouter();
+registerExtendRouter();
+registerInterceptorRouter();
+registerConfigRouter();
+registerCancelRouter();
+registerMoreRouter();
 
-app.use(router)
+app.use(router);
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 module.exports = app.listen(port, () => {
-  console.log(`Server listening on http://localhost: ${port}, Ctrl+c to stop.`)
-})
+  console.log(`Server listening on http://localhost: ${port}, Ctrl+c to stop.`);
+});
 
 // ------ router ------
 
 function registerSimpleRouter() {
-  router.get('/simple/get', (req, res) => {
+  router.get("/simple/get", (req, res) => {
     res.json({
-      msg: 'hello world'
-    })
-  })
+      msg: "hello world",
+    });
+  });
 }
 
 function registerBaseRouter() {
-  router.get('/base/get', (req, res) => {
-    res.json(req.query)
-  })
+  router.get("/base/get", (req, res) => {
+    res.json(req.query);
+  });
 
-  router.post('/base/post', (req, res) => {
-    res.json(req.body)
-  })
+  router.post("/base/post", (req, res) => {
+    res.json(req.body);
+  });
 
-  router.post('/base/buffer', (req, res) => {
-    let msg = []
+  router.post("/base/buffer", (req, res) => {
+    let msg = [];
 
-    req.on('data', chunk => {
-      if (chunk) msg.push(chunk)
-    })
+    req.on("data", (chunk) => {
+      if (chunk) msg.push(chunk);
+    });
 
-    req.on('end', () => {
-      let buf = Buffer.concat(msg)
-      res.json(buf.toJSON())
-    })
-  })
+    req.on("end", () => {
+      let buf = Buffer.concat(msg);
+      res.json(buf.toJSON());
+    });
+  });
 }
 
 function registerErrorRouter() {
-  router.get('/error/get', (req, res) => {
+  router.get("/error/get", (req, res) => {
     if (Math.random() > 0.5) {
       res.json({
-        msg: 'hello world'
-      })
+        msg: "hello world",
+      });
     } else {
-      res.status(500)
-      res.end()
+      res.status(500);
+      res.end();
     }
-  })
+  });
 
-  router.get('/error/timeout', (req, res) => {
+  router.get("/error/timeout", (req, res) => {
     setTimeout(() => {
       res.json({
-        msg: 'hello world'
-      })
-    }, 3000)
-  })
+        msg: "hello world",
+      });
+    }, 3000);
+  });
 }
 
 function registerExtendRouter() {
-  router.get('/extend/get', (req, res) => {
+  router.get("/extend/get", (req, res) => {
     res.json({
-      msg: 'get'
-    })
-  })
+      msg: "get",
+    });
+  });
 
-  router.options('/extend/options', (req, res) => {
+  router.options("/extend/options", (req, res) => {
     res.json({
-      msg: 'options'
-    })
-  })
+      msg: "options",
+    });
+  });
 
-  router.delete('/extend/delete', (req, res) => {
+  router.delete("/extend/delete", (req, res) => {
     res.json({
-      msg: 'delete'
-    })
-  })
+      msg: "delete",
+    });
+  });
 
-  router.head('/extend/head', (req, res) => {
-    res.end()
-  })
+  router.head("/extend/head", (req, res) => {
+    res.end();
+  });
 
-  router.post('/extend/post', (req, res) => {
-    res.json(req.body)
-  })
+  router.post("/extend/post", (req, res) => {
+    res.json(req.body);
+  });
 
-  router.put('/extend/put', (req, res) => {
-    res.json(req.body)
-  })
+  router.put("/extend/put", (req, res) => {
+    res.json(req.body);
+  });
 
-  router.patch('/extend/patch', (req, res) => {
-    res.json(req.body)
-  })
+  router.patch("/extend/patch", (req, res) => {
+    res.json(req.body);
+  });
 
-  router.get('/extend/user', (req, res) => {
+  router.get("/extend/user", (req, res) => {
     res.json({
       code: 0,
-      message: 'ok',
+      message: "ok",
       result: {
-        name: 'jack',
-        age: 18
-      }
-    })
-  })
+        name: "jack",
+        age: 18,
+      },
+    });
+  });
 }
 
 function registerInterceptorRouter() {
-  router.get('/interceptor/get', (req, res) => {
-    res.end('hello')
-  })
+  router.get("/interceptor/get", (req, res) => {
+    res.end("hello");
+  });
 }
 
 function registerConfigRouter() {
-  router.post('/config/post', (req, res) => {
-    res.json(req.body)
-  })
+  router.post("/config/post", (req, res) => {
+    res.json(req.body);
+  });
 }
 
 function registerCancelRouter() {
-  router.get('/cancel/get', (req, res) => {
+  router.get("/cancel/get", (req, res) => {
     setTimeout(() => {
-      res.json('hello')
-    }, 1000)
-  })
+      res.json("hello");
+    }, 1000);
+  });
 
-  router.post('/cancel/post', (req, res) => {
+  router.post("/cancel/post", (req, res) => {
     setTimeout(() => {
-      res.json(req.body)
-    }, 1000)
-  })
+      res.json(req.body);
+    }, 1000);
+  });
 }
 
 function registerMoreRouter() {
-  router.get('/more/get', (req, res) => {
-    res.json(req.cookies)
-  })
+  router.get("/more/get", (req, res) => {
+    res.json(req.cookies);
+  });
 
-  router.post('/more/upload', (req, res) => {
-    console.log(req.body, req.files)
-    res.end('upload success!')
-  })
+  router.post("/more/upload", (req, res) => {
+    console.log(req.body, req.files);
+    res.end("upload success!");
+  });
 
-  router.post('/more/post', (req, res) => {
-    const auth = req.headers.authorization
-    const [type, credentials] = auth.split(' ')
-    console.log(atob(credentials))
-    const [username, password] = atob(credentials).split(':')
-    if (type === 'Basic' && username === 'hale' && password === '123456') {
-      res.json(req.body)
+  router.post("/more/post", (req, res) => {
+    const auth = req.headers.authorization;
+    const [type, credentials] = auth.split(" ");
+    console.log(atob(credentials));
+    const [username, password] = atob(credentials).split(":");
+    if (type === "Basic" && username === "hale" && password === "123456") {
+      res.json(req.body);
     } else {
-      res.status(401)
-      res.end('UnAuthorization')
+      res.status(401);
+      res.end("UnAuthorization");
     }
-  })
+  });
 
-  router.get('/more/304', (req, res) => {
-    res.status(304)
-    res.end()
-  })
+  router.get("/more/304", (req, res) => {
+    res.status(304);
+    res.end();
+  });
 
-  router.get('/more/A', (req, res) => {
-    res.end('A')
-  })
+  router.get("/more/A", (req, res) => {
+    res.end("A");
+  });
 
-  router.get('/more/B', (req, res) => {
-    res.end('B')
-  })
+  router.get("/more/B", (req, res) => {
+    res.end("B");
+  });
 }

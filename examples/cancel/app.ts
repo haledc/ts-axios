@@ -1,42 +1,41 @@
-import axios, { Canceler } from '../../src'
+// test passed
+import axios, { Canceler } from "../../src";
+const CancelToken = axios.CancelToken;
 
-const CancelToken = axios.CancelToken
-const source = CancelToken.source()
-
-axios
-  .get('/cancel/get', {
-    cancelToken: source.token
-  })
-  .catch(err => {
-    if (axios.isCancel(err)) {
-      console.log('Request canceled:', err.message)
-    }
-  })
-
-setTimeout(() => {
-  source.cancel('Operation canceled by the user.')
-
-  axios
-    .post('/cancel/post', { a: 1 }, { cancelToken: source.token })
-    .catch(err => {
-      if (axios.isCancel(err)) {
-        console.log(err.message)
-      }
-    })
-}, 100)
-
-let cancel: Canceler
-
-axios
-  .get('/cancel/get', {
-    cancelToken: new CancelToken(c => (cancel = c))
-  })
-  .catch(err => {
-    if (axios.isCancel(err)) {
-      console.log('Request canceled.')
-    }
-  })
+// // CancelToken.source 静态方法取消
+const { token, cancel } = CancelToken.source();
+// axios
+//   .get("/cancel/get", {
+//     cancelToken: token,
+//   })
+//   .catch((err) => {
+//     if (axios.isCancel(err)) {
+//       console.log("Request canceled:", err.message);
+//     }
+//   });
 
 setTimeout(() => {
-  cancel()
-}, 200)
+  // cancel("Operation canceled by the user.");
+
+  axios.post("/cancel/post", { a: 1 }, { cancelToken: token }).catch((err) => {
+    if (axios.isCancel(err)) {
+      console.log(err.message);
+    }
+  });
+  // post no cancel
+}, 200);
+
+// // cancel 实例取消
+// let cancel2: Canceler;
+// axios
+//   .get("/cancel/get", {
+//     cancelToken: new CancelToken((c) => (cancel2 = c)),
+//   })
+//   .catch((err) => {
+//     if (axios.isCancel(err)) {
+//       console.log("Request canceled.");
+//     }
+//   });
+// setTimeout(() => {
+//   cancel2();
+// }, 200);

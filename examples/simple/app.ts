@@ -1,10 +1,11 @@
-import axios from '../../src'
+// test passed
+import axios from "../../src";
 
 axios({
-  method: 'get',
-  url: '/simple/get',
+  method: "get",
+  url: "/simple/get",
   params: {
     a: 1,
-    b: 2
-  }
-})
+    b: 2,
+  },
+});
