@@ -37,8 +37,6 @@ const defaults: AxiosRequestDefaulfConfig = {
 
   transformRequest: [
     function (data: any, headers: any): any {
-      debugger;
-      console.log(data);
       normalizeHeaderName(headers, "Accept");
       normalizeHeaderName(headers, "Content-Type");
 
@@ -58,7 +56,10 @@ const defaults: AxiosRequestDefaulfConfig = {
       }
 
       if (isURLSearchParams(data)) {
-        setContentTypeIfUnset(headers, "application/x-www-form-urlencoded;charset=utf-8");
+        setContentTypeIfUnset(
+          headers,
+          "application/x-www-form-urlencoded;charset=utf-8"
+        );
         return data.toString();
       }
 
@@ -77,7 +78,7 @@ const defaults: AxiosRequestDefaulfConfig = {
         try {
           data = JSON.parse(data);
         } catch (error) {
-          // do nothing
+          // Ignore
         }
       }
       return data;
@@ -107,7 +108,10 @@ function getDefaultAdapter() {
   let adapter!: AxiosAdapter;
   if (typeof XMLHttpRequest !== "undefined") {
     adapter = xhrAdapter;
-  } else if (typeof process !== "undefined" && toString.call(process) === "[object process]") {
+  } else if (
+    typeof process !== "undefined" &&
+    toString.call(process) === "[object process]"
+  ) {
     adapter = httpAdapter;
   }
 

@@ -1,4 +1,10 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse, Method, AxiosAdapter } from "../types";
+import {
+  AxiosRequestConfig,
+  AxiosPromise,
+  AxiosResponse,
+  Method,
+  AxiosAdapter,
+} from "../types";
 import { transformData } from "./transformData";
 import defaults from "../defaults";
 import { deepMerge } from "../utils";
@@ -7,7 +13,9 @@ import { isAbsoluteURL } from "../helpers/isAbsoluteURL";
 import { combineURL } from "../helpers/combineURLs";
 import { buildURL } from "../helpers/buildURL";
 
-export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+export default function dispatchRequest(
+  config: AxiosRequestConfig
+): AxiosPromise {
   throwIfCancellationRequested(config);
 
   processConfig(config);
@@ -40,7 +48,11 @@ function throwIfCancellationRequested(config: AxiosRequestConfig): void {
 
 function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config);
-  config.data = transformData(config.data, config.headers, config.transformRequest);
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
   config.headers = flattenHeaders(config.headers, config.method!);
 }
 
@@ -64,7 +76,16 @@ function flattenHeaders(headers: any, method: Method): any {
 
   headers = deepMerge(headers.common, headers[method], headers);
 
-  const methodsToDelete = ["delete", "get", "head", "options", "post", "put", "patch", "common"];
+  const methodsToDelete = [
+    "delete",
+    "get",
+    "head",
+    "options",
+    "post",
+    "put",
+    "patch",
+    "common",
+  ];
 
   methodsToDelete.forEach((method) => delete headers[method]);
 

@@ -10,14 +10,18 @@ describe("xsrf", () => {
   afterEach(() => {
     jasmine.Ajax.uninstall();
     document.cookie =
-      axios.defaults.xsrfCookieName + "=;expires=" + new Date(Date.now() - 86400000).toISOString();
+      axios.defaults.xsrfCookieName +
+      "=;expires=" +
+      new Date(Date.now() - 86400000).toISOString();
   });
 
   test("should not set xsrf header if cookie is null", () => {
     axios("/foo");
 
     return getAjaxRequest().then((request) => {
-      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(undefined);
+      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(
+        undefined
+      );
     });
   });
 
@@ -27,7 +31,9 @@ describe("xsrf", () => {
     axios("/foo");
 
     return getAjaxRequest().then((request) => {
-      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe("123456");
+      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(
+        "123456"
+      );
     });
   });
 
@@ -37,7 +43,9 @@ describe("xsrf", () => {
     axios("http://example.com/");
 
     return getAjaxRequest().then((request) => {
-      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(undefined);
+      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(
+        undefined
+      );
     });
   });
 
@@ -49,7 +57,9 @@ describe("xsrf", () => {
     });
 
     return getAjaxRequest().then((request) => {
-      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe("123456");
+      expect(request.requestHeaders[axios.defaults.xsrfHeaderName!]).toBe(
+        "123456"
+      );
     });
   });
 });

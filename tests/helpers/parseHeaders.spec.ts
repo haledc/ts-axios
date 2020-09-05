@@ -26,7 +26,9 @@ describe("helpers::parseHeaders", () => {
   test("should use array for set-cookie", function () {
     const parsedZero = parseHeaders("");
     const parsedSingle = parseHeaders("Set-Cookie: key=val;");
-    const parsedMulti = parseHeaders("Set-Cookie: key=val;\n" + "Set-Cookie: key2=val2;\n");
+    const parsedMulti = parseHeaders(
+      "Set-Cookie: key=val;\n" + "Set-Cookie: key2=val2;\n"
+    );
 
     expect(parsedZero["set-cookie"]).toBe(undefined);
     expect(parsedSingle["set-cookie"]).toEqual(["key=val;"]);

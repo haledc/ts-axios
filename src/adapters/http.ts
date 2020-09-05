@@ -82,7 +82,11 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
     const agent = isHttpsRequest ? httpsAgent : httpAgent;
 
     const options: { [key: string]: any } = {
-      path: buildURL(parsed.path!, config.params, config.paramsSerializer).replace(/^\?/, ""),
+      path: buildURL(
+        parsed.path!,
+        config.params,
+        config.paramsSerializer
+      ).replace(/^\?/, ""),
       method,
       headers,
       agent,
@@ -99,7 +103,8 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
 
     if (!proxy && proxy !== false) {
       const proxyEnv = protocol.slice(0, -1) + "_proxy";
-      const proxyUrl = process.env[proxyEnv] || process.env[proxyEnv.toUpperCase()];
+      const proxyUrl =
+        process.env[proxyEnv] || process.env[proxyEnv.toUpperCase()];
 
       if (proxyUrl) {
         const parsedProxyUrl = parse(proxyUrl);
@@ -114,7 +119,9 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
             if (proxyElement === "*") return true;
             if (
               proxyElement[0] === "." &&
-              parsed.hostname?.substr(parsed.hostname.length - proxyElement.length) === proxyElement
+              parsed.hostname?.substr(
+                parsed.hostname.length - proxyElement.length
+              ) === proxyElement
             ) {
               return true;
             }
@@ -142,10 +149,15 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
     if (proxy) {
       options.hostname = proxy.host;
       options.host = proxy.host;
-      options.headers.host = parsed.hostname + (parsed.port ? `:${parsed.port}` : "");
+      options.headers.host =
+        parsed.hostname + (parsed.port ? `:${parsed.port}` : "");
       options.port = proxy.port;
       options.path =
-        protocol + "//" + parsed.hostname + (parsed.port ? `:${parsed.port}` : "") + options.path;
+        protocol +
+        "//" +
+        parsed.hostname +
+        (parsed.port ? `:${parsed.port}` : "") +
+        options.path;
 
       if (proxy.auth) {
         const base64 = Buffer.from(
@@ -157,7 +169,8 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
     }
 
     let trans;
-    const isHttpsProxy = isHttpsRequest && (proxy ? isHttps.test(proxy.protocol!) : true);
+    const isHttpsProxy =
+      isHttpsRequest && (proxy ? isHttps.test(proxy.protocol!) : true);
 
     if (transport) {
       trans = transport;
@@ -181,7 +194,11 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
       let stream = res;
       const lastRequest = res.req || req;
 
-      if (res.statusCode !== 204 && lastRequest.method !== "HEAD" && decompress) {
+      if (
+        res.statusCode !== 204 &&
+        lastRequest.method !== "HEAD" &&
+        decompress
+      ) {
         switch (res.headers["content-encoding"]) {
           case "gzip":
           case "decompress":
@@ -209,7 +226,10 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
         stream.on("data", (chunk: any) => {
           responseBuffer.push(chunk);
 
-          if (maxContentLength! > -1 && Buffer.concat(responseBuffer).length > maxContentLength!) {
+          if (
+            maxContentLength! > -1 &&
+            Buffer.concat(responseBuffer).length > maxContentLength!
+          ) {
             stream.destroy();
             reject(
               createError(
@@ -247,7 +267,14 @@ export default function httpAdapter(config: AxiosRequestConfig): AxiosPromise {
     if (timeout) {
       req.setTimeout(timeout, () => {
         req.abort();
-        reject(createError("timeout of " + timeout + " ms exceeded", config, "ECONNABORTED", req));
+        reject(
+          createError(
+            "timeout of " + timeout + " ms exceeded",
+            config,
+            "ECONNABORTED",
+            req
+          )
+        );
       });
     }
 

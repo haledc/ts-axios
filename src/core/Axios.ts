@@ -28,8 +28,8 @@ export default class Axios<T> implements AxiosInterface<T> {
   constructor(initConfig: AxiosRequestConfig) {
     this.defaults = initConfig;
     this.interceptors = {
-      request: new InterceptorManager<AxiosRequestConfig>(),
-      response: new InterceptorManager<AxiosResponse>(),
+      request: new InterceptorManager<AxiosRequestConfig>(), // ! 请求拦截表
+      response: new InterceptorManager<AxiosResponse>(), // ! 响应拦截表
     };
   }
 
@@ -47,6 +47,7 @@ export default class Axios<T> implements AxiosInterface<T> {
 
     config.method = config.method.toLowerCase();
 
+    // ! 执行链
     const chain: PromiseChain<any>[] = [
       {
         resolved: dispatchRequest,
@@ -54,11 +55,16 @@ export default class Axios<T> implements AxiosInterface<T> {
       },
     ];
 
-    this.interceptors.request.forEach((interceptor) => chain.unshift(interceptor));
-    this.interceptors.response.forEach((interceptor) => chain.push(interceptor));
+    this.interceptors.request.forEach(
+      (interceptor) => chain.unshift(interceptor) // ! 从前面加入到执行链中 先进后出
+    );
+    this.interceptors.response.forEach(
+      (interceptor) => chain.push(interceptor) // ! 从后面加入到执行链中 先进先出
+    );
 
-    let promise = Promise.resolve(config);
+    let promise = Promise.resolve(config); // ! 转入 config 作为请求拦截的参数
 
+    // ! 按照顺序执行
     while (chain.length) {
       const { resolved, rejected } = chain.shift()!;
       promise = promise.then(resolved, rejected);
@@ -100,7 +106,12 @@ export default class Axios<T> implements AxiosInterface<T> {
     return this.requestMethod("patch", url, config, data);
   }
 
-  private requestMethod(method: Method, url: string, config?: AxiosRequestConfig, data?: any) {
+  private requestMethod(
+    method: Method,
+    url: string,
+    config?: AxiosRequestConfig,
+    data?: any
+  ) {
     return this.request(
       Object.assign(config || {}, {
         method,

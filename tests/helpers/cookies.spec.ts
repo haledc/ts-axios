@@ -10,7 +10,8 @@ describe("helpers::cookies", () => {
         return cookie.split("=")[0];
       })
       .forEach(function (name) {
-        document.cookie = name + "=; expires=" + new Date(expires).toUTCString();
+        document.cookie =
+          name + "=; expires=" + new Date(expires).toUTCString();
       });
   });
 

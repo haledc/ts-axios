@@ -28,7 +28,6 @@ axios.isCancel = isCancel;
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-
 axios.spread = spread;
 
 axios.Axios = Axios;

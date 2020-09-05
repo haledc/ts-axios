@@ -14,14 +14,13 @@ export default class InterceptorManager<T> {
 
   use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number {
     this.interceptors.push({ resolved, rejected });
-    return this.interceptors.length - 1;
+    return this.interceptors.length - 1; // 返回索引
   }
 
   forEach(fn: (interceptor: Interceptor<T>) => void): void {
     this.interceptors.forEach((interceptor) => {
-      if (interceptor != null) {
-        fn(interceptor);
-      }
+      // 排除为 null 的拦截（比如 ejecct 的拦截）
+      if (interceptor) fn(interceptor);
     });
   }
 

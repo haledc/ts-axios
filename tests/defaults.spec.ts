@@ -13,24 +13,30 @@ describe("defaults", () => {
   });
 
   test("should transform request json", () => {
-    expect((axios.defaults.transformRequest as AxiosTransformer[])[0]({ foo: "bar" })).toBe(
-      '{"foo":"bar"}'
-    );
+    expect(
+      (axios.defaults.transformRequest as AxiosTransformer[])[0]({ foo: "bar" })
+    ).toBe('{"foo":"bar"}');
   });
 
   test("should do nothing to request string", () => {
-    expect((axios.defaults.transformRequest as AxiosTransformer[])[0]("foo=bar")).toBe("foo=bar");
+    expect(
+      (axios.defaults.transformRequest as AxiosTransformer[])[0]("foo=bar")
+    ).toBe("foo=bar");
   });
 
   test("should transform response json", () => {
-    const data = (axios.defaults.transformResponse as AxiosTransformer[])[0]('{"foo":"bar"}');
+    const data = (axios.defaults.transformResponse as AxiosTransformer[])[0](
+      '{"foo":"bar"}'
+    );
 
     expect(typeof data).toBe("object");
     expect(data.foo).toBe("bar");
   });
 
   test("should do nothing to response string", () => {
-    expect((axios.defaults.transformResponse as AxiosTransformer[])[0]("foo=bar")).toBe("foo=bar");
+    expect(
+      (axios.defaults.transformResponse as AxiosTransformer[])[0]("foo=bar")
+    ).toBe("foo=bar");
   });
 
   test("should use global default config", () => {
@@ -73,7 +79,9 @@ describe("defaults", () => {
     instance.get("/foo");
 
     return getAjaxRequest().then((request) => {
-      expect(request.requestHeaders[instance.defaults.xsrfHeaderName!]).toBe("foobarbaz");
+      expect(request.requestHeaders[instance.defaults.xsrfHeaderName!]).toBe(
+        "foobarbaz"
+      );
 
       document.cookie =
         instance.defaults.xsrfCookieName +

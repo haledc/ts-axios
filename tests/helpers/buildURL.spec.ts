@@ -86,6 +86,8 @@ describe("helpers::buildURL", () => {
   });
 
   test("should support URLSearchParams", () => {
-    expect(buildURL("/foo", new URLSearchParams("bar=baz"))).toBe("/foo?bar=baz");
+    expect(buildURL("/foo", new URLSearchParams("bar=baz"))).toBe(
+      "/foo?bar=baz"
+    );
   });
 });

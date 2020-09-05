@@ -74,7 +74,10 @@ export function isStream(val: any) {
   return isObject(val) && isFunction(val.pipe);
 }
 
-export function extend<T extends Object, U extends Object>(to: T, from: U): T & U {
+export function extend<T extends Object, U extends Object>(
+  to: T,
+  from: U
+): T & U {
   for (const key in from) {
     (to as T & U)[key] = from[key] as any;
   }
@@ -121,8 +124,10 @@ export function deepMerge(...objs: any[]): any {
 }
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
-export const hasOwn = (val: object, key: string | symbol): key is keyof typeof val =>
-  hasOwnProperty.call(val, key);
+export const hasOwn = (
+  val: object,
+  key: string | symbol
+): key is keyof typeof val => hasOwnProperty.call(val, key);
 
 export function forEach(obj: any, fn: Function) {
   if (obj == null) return;

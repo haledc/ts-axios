@@ -20,7 +20,9 @@ describe("auth", () => {
     });
 
     return getAjaxRequest().then((request) => {
-      expect(request.requestHeaders["Authorization"]).toBe("Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==");
+      expect(request.requestHeaders["Authorization"]).toBe(
+        "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+      );
     });
   });
 

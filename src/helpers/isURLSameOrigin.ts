@@ -35,10 +35,16 @@ export const isURLSameOrigin = isStandardBrowserEnv()
 
         return {
           href: urlParsingNode.href,
-          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, "") : "",
+          protocol: urlParsingNode.protocol
+            ? urlParsingNode.protocol.replace(/:$/, "")
+            : "",
           host: urlParsingNode.host,
-          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, "") : "",
-          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, "") : "",
+          search: urlParsingNode.search
+            ? urlParsingNode.search.replace(/^\?/, "")
+            : "",
+          hash: urlParsingNode.hash
+            ? urlParsingNode.hash.replace(/^#/, "")
+            : "",
           hostname: urlParsingNode.hostname,
           port: urlParsingNode.port,
           pathname:
@@ -58,7 +64,10 @@ export const isURLSameOrigin = isStandardBrowserEnv()
           parsed = requestURL as ParsedURL;
         }
 
-        return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
+        return (
+          parsed.protocol === originURL.protocol &&
+          parsed.host === originURL.host
+        );
       };
     })()
   : (function nonStandardBrowserEnv() {
